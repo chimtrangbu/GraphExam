@@ -11,18 +11,18 @@ class Graph(object):
             parsed_gr[tup[0]] = tup[1]
         return parsed_gr
 
-    def backtrack(self, start, end, path=[]):
-        if end in self.graph[start]:
-            self.solutions.append(path + [start, end])
+    def backtrack(self, start, path=[]):
+        if self.end in self.graph[start]:
+            self.solutions.append(path + [start, self.end])
             return
         for point in self.graph[start]:
             path.append(start)
             if point not in path:
-                self.backtrack(point, end, path)
+                self.backtrack(point, path)
             path.pop()
 
 
 def non_overlapping_paths(start, end, graph):
-    graph = Graph(start, end, graph)
-    graph.backtrack(start, end)
-    return graph.solutions
+    my_graph = Graph(start, end, graph)
+    my_graph.backtrack(my_graph.start)
+    return my_graph.solutions
